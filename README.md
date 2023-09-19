@@ -1,27 +1,68 @@
-# React + TypeScript + Vite
+# Boilerplate and Starter for React JS 18+, Tailwind CSS v3.3 and Typescript
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+<p align="center">
+<img src="public/assets/imgs/banner.png?raw=true" alt="React js starter banner" />
+</p>
 
-Currently, two official plugins are available:
+🚀🚀🚀 Boilerplate and Starter for React.js, Tailwind CSS and TypeScript ⚡️ Made with developer experience first: React.js, TypeScript, Axios, ESLint, Prettier, Husky, Lint-Staged, VSCode, PostCSS, Tailwind CSS.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Clone this project and use it to create your own [React.js](https://nextjs.org) project.
 
-## Expanding the ESLint configuration
+### Features
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+- ⚡ [React.js](https://react.dev/)
+- 🔥 Type checking [TypeScript](https://www.typescriptlang.org)
+- 💎 Integrate with [Tailwind CSS](https://tailwindcss.com)
+- ✅ Strict Mode for TypeScript and React 18
+- 📏 Linter with [ESLint](https://eslint.org) (default NextJS, NextJS Core Web Vitals, Tailwind CSS and Airbnb configuration)
+- 💖 Code Formatter with [Prettier](https://prettier.io)
+- 🦊 Husky for Git Hooks
+- 🚫 Lint-staged for running linters on Git staged files
+- 🗂 VSCode configuration: Debug, Settings, Tasks and extension for PostCSS, ESLint, Prettier, TypeScript, Jest
 
-- Configure the top-level `parserOptions` property like this:
+### Requirements
 
-```js
-   parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-   },
+- Node.js 16+ and pnpm
+
+### Getting started
+
+Run the following command on your local environment:
+
+```shell
+git clone --depth=1 https://github.com/sonht113/react-boilerplate-for-starter.git
+cd my-project-name
+pnpm install
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+Then, you can run locally in development mode with live reload:
+
+```shell
+pnpm run dev
+```
+
+Open http://localhost:5173 with your favorite browser to see your project.
+
+```shell
+.
+├── README.md                       # README file
+├── .github                         # GitHub folder
+├── .husky                          # Husky configuration
+├── public                          # Public assets folder
+├── src
+│   ├── apis                        # Common apis folder
+│   ├── data                        # Data constant folder
+│   ├── pages                       # React JS Pages
+│   └── utils                       # Utility functions
+├── tailwind.config.js              # Tailwind CSS configuration
+└── tsconfig.json                   # TypeScript configuration
+```
+
+### Customization
+
+- `src/index.css`: your CSS file using Tailwind CSS
+- `src/main.tsx`: default theme
+
+You have access to the whole code source if you need further customization. The provided code is only example for you to start your project. The sky is the limit 🚀.
+
+--------------------------
+Made with ♥ by [TrongSon](https://www.facebook.com/profile.php?id=100032736788526&locale=vi_VN)
