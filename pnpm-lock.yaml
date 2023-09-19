@@ -14,9 +14,6 @@ dependencies:
   '@lukemorales/query-key-factory':
     specifier: ^1.3.2
     version: 1.3.2(@tanstack/query-core@4.35.3)(@tanstack/react-query@4.35.3)
-  '@tanstack/react-query':
-    specifier: ^4.35.3
-    version: 4.35.3(react-dom@18.2.0)(react@18.2.0)
   axios:
     specifier: ^1.5.0
     version: 1.5.0
