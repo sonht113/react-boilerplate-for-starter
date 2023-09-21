@@ -4,13 +4,14 @@
 <img src="public/assets/imgs/banner.png?raw=true" alt="React js starter banner" />
 </p>
 
-🚀🚀🚀 Boilerplate and Starter for React.js, Tailwind CSS and TypeScript ⚡️ Made with developer experience first: React.js, TypeScript, Axios, ESLint, Prettier, Husky, Lint-Staged, VSCode, PostCSS, Tailwind CSS.
+🚀🚀🚀 Boilerplate and Starter for React.js, Shadcn/ui, Tailwind CSS and TypeScript ⚡️ Made with developer experience first: React.js, TypeScript, Axios, ESLint, Prettier, Husky, Lint-Staged, VSCode, PostCSS, Tailwind CSS.
 
 Clone this project and use it to create your own [React.js](https://nextjs.org) project.
 
 ### Features
 
 - ⚡ [React.js](https://react.dev/)
+- ⚡ [Shadcn/ui](https://ui.shadcn.com/)
 - 🔥 Type checking [TypeScript](https://www.typescriptlang.org)
 - 💎 Integrate with [Tailwind CSS](https://tailwindcss.com)
 - ✅ Strict Mode for TypeScript and React 18
