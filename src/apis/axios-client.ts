@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-return */
 import axios, { AxiosError } from 'axios';
 
-import { LOGIN_PATH } from '@/data/constant';
+import { LOGIN_PATH } from '@/data';
 
 const axiosClient = axios.create({
   baseURL: import.meta.env.VITE_API_URL,
