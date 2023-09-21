@@ -15,7 +15,7 @@ const HeaderComponent = () => {
   const { checkActive } = useActiveMenu();
 
   return (
-    <div className="block fixed w-full inset-x-0 z-30 h-16 px-4 bg-slate-500 dark:bg-slate-900">
+    <header className="bg-secondary block fixed w-full inset-x-0 z-30 h-16 px-4 shadow-xl">
       <div className="w-full h-full flex items-center justify-between mx-auto">
         <div className="w-full flex justify-between items-center">
           <NavigationMenu>
@@ -37,7 +37,7 @@ const HeaderComponent = () => {
           <ButtonTheme />
         </div>
       </div>
-    </div>
+    </header>
   );
 };
 
