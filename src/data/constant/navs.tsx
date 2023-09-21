@@ -76,6 +76,10 @@ const getShowNavigation = (
 
 const menuList: TypeNavs[] = [];
 const routeList: TypeRoutes[] = [];
+const navList: TypeNavs[] = navs.map((nav) => ({
+  key: nav.key,
+  label: nav.label,
+}));
 
 for (const nav of navs) {
   const nav1 = cloneDeep(nav);
@@ -86,4 +90,4 @@ for (const nav of navs) {
   getRoutes(routeList, nav2);
 }
 
-export { routeList, menuList };
+export { routeList, menuList, navList };
