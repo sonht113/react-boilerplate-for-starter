@@ -25,7 +25,7 @@ axiosClient.interceptors.request.use(
   function (error) {
     // Do something with request error
     return Promise.reject(error);
-  }
+  },
 );
 
 // Add a response interceptor
@@ -45,7 +45,7 @@ axiosClient.interceptors.response.use(
     }
 
     return Promise.reject(error);
-  }
+  },
 );
 
 export default axiosClient;

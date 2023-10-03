@@ -44,13 +44,14 @@ module.exports = {
     'react/prop-types': 'off',
     '@typescript-eslint/no-non-null-assertion': 0,
     'no-unused-vars': 'off',
+    '@typescript-eslint/no-misused-promises': 'off',
     '@typescript-eslint/no-unused-vars': [
       2,
       {
         argsIgnorePattern: '^_',
         varsIgnorePattern: '^_',
         ignoreRestSiblings: true,
-      }
+      },
     ],
     'prettier/prettier': ['off', { singleQuote: true }],
     'no-restricted-imports': [
@@ -89,7 +90,7 @@ module.exports = {
   },
   settings: {
     react: {
-      version: 'detect'
-    }
-  }
+      version: 'detect',
+    },
+  },
 };

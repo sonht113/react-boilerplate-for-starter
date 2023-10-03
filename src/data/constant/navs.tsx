@@ -1,9 +1,9 @@
 import { cloneDeep } from 'lodash';
 import { Link } from 'react-router-dom';
 
-import { HOME_PATH, USER_PATH, POST_PATH } from './path';
+import { HOME_PATH, USER_PATH, TODO_PATH } from './path';
 import { TypeNavs, TypeRoutes } from './type-navs';
-import { Home, Users, Posts } from '@/pages';
+import { Home, Users, Todos } from '@/pages';
 import { capitalizeFirstLetter } from '@/utils';
 
 const navs: TypeNavs[] = [
@@ -18,9 +18,9 @@ const navs: TypeNavs[] = [
     element: <Users />,
   },
   {
-    key: POST_PATH,
-    label: 'post',
-    element: <Posts />,
+    key: TODO_PATH,
+    label: 'todo',
+    element: <Todos />,
   },
 ];
 

@@ -7,3 +7,4 @@ postcss.config.js
 tailwind.config.js
 i18n.ts
 public/firebase-messaging-sw.js
+src/components/ui/*
