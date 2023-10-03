@@ -44,6 +44,7 @@ module.exports = {
     'react/prop-types': 'off',
     '@typescript-eslint/no-non-null-assertion': 0,
     'no-unused-vars': 'off',
+    "@typescript-eslint/no-misused-promises": "off",
     '@typescript-eslint/no-unused-vars': [
       2,
       {
