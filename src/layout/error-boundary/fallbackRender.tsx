@@ -2,8 +2,6 @@ import { ReactNode } from 'react';
 
 import { FallbackProps } from 'react-error-boundary';
 
-import { Button } from '@/components';
-
 const fallbackRender: (props: FallbackProps) => ReactNode = ({
   error,
   resetErrorBoundary,
@@ -15,7 +13,7 @@ const fallbackRender: (props: FallbackProps) => ReactNode = ({
     <div role="alert">
       <span>Something went wrong:</span>
       <pre className="text-red-500">{error.message}</pre>
-      <Button onClick={resetErrorBoundary}>Try again</Button>
+      <button onClick={resetErrorBoundary}>Try again</button>
     </div>
   );
 };
