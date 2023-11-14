@@ -1,32 +1,57 @@
-import { FC, useMemo, useState } from 'react';
+import React, { FC, useMemo } from 'react';
 
+import AddIcon from '@mui/icons-material/Add';
+import {
+  Backdrop,
+  Box,
+  Button,
+  Card,
+  CardContent,
+  CardHeader,
+  Checkbox,
+  CircularProgress,
+  FormControl,
+  FormControlLabel,
+  FormHelperText,
+  IconButton,
+  Modal,
+  TextField,
+  Typography,
+} from '@mui/material';
+import { Controller, useForm } from 'react-hook-form';
 import { FiTrash2 } from 'react-icons/fi';
 
 import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-  Checkbox,
-  Label,
-} from '@/components';
-import {
   TodoDataMutation,
-  TodoForm,
   useAddTodoMutation,
   useDeleteTodoMutation,
   useTodoListQuery,
   useUpdateTodoMutation,
 } from '@/features/todo';
+import { useModalStore } from '@/hooks';
+
+type Input = {
+  todoName: string;
+};
 
 const Todos: FC = () => {
-  const [openForm, setOpenForm] = useState(false);
+  const {
+    control,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm<Input>();
 
-  const { data: todos, refetch } = useTodoListQuery();
-  const { mutate: addTodo } = useAddTodoMutation();
-  const { mutate: updateTodo } = useUpdateTodoMutation();
-  const { mutate: deleteTodo } = useDeleteTodoMutation();
+  const isOpen = useModalStore((state) => state.isOpen);
+  const open = useModalStore((state) => state.open);
+  const close = useModalStore((state) => state.close);
+
+  const { data: todos, refetch, isLoading: loadingFetch } = useTodoListQuery();
+  const { mutate: addTodo, isLoading: loadingCreate } = useAddTodoMutation();
+  const { mutate: updateTodo, isLoading: loadingUpdate } =
+    useUpdateTodoMutation();
+  const { mutate: deleteTodo, isLoading: loadingDelete } =
+    useDeleteTodoMutation();
 
   const todoList = useMemo(() => {
     return todos?.data.sort((a, b) => {
@@ -43,8 +68,9 @@ const Todos: FC = () => {
   const handleCreateTodo = (body: TodoDataMutation) => {
     return addTodo(body, {
       onSuccess: () => {
-        setOpenForm(false);
         void refetch();
+        void reset({ todoName: '' });
+        void close();
       },
     });
   };
@@ -66,52 +92,109 @@ const Todos: FC = () => {
   };
 
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle>Todo</CardTitle>
-        <CardDescription>
-          <TodoForm
-            onCreate={handleCreateTodo}
-            open={openForm}
-            setOpen={setOpenForm}
-          />
-        </CardDescription>
-      </CardHeader>
-      <CardContent>
-        <div className="w-3/4 flex flex-col gap-5 mx-auto">
-          {todoList?.map((todo) => (
-            <div
-              key={todo._id}
-              className="w-full flex items-center justify-between"
-            >
-              <div className="space-x-2">
-                <Checkbox
-                  id={todo._id}
-                  color="success"
-                  checked={todo.isComplete}
-                  onCheckedChange={(c) => {
-                    handleUpdateTodo({
-                      id: todo._id,
-                      data: { isComplete: c as boolean },
-                    });
-                  }}
-                />
-                <Label
-                  htmlFor={todo._id}
-                  className={todo.isComplete ? 'line-through' : ''}
-                >
-                  {todo.todoName}
-                </Label>
-              </div>
-              <FiTrash2
-                className="cursor-pointer"
-                onClick={() => handleDeleteTodo(todo._id)}
-              />
+    <React.Fragment>
+      <Backdrop
+        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        open={loadingDelete || loadingUpdate}
+      >
+        <CircularProgress color="inherit" />
+      </Backdrop>
+      <Modal
+        open={isOpen}
+        onClose={close}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+        className="flex justify-center items-center"
+      >
+        <>
+          <Backdrop
+            sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+            open={loadingCreate}
+          >
+            <CircularProgress color="inherit" />
+          </Backdrop>
+          <Box
+            component="form"
+            className="w-3/5 py-10 px-5 bg-white dark:bg-slate-700 rounded-xl"
+            onSubmit={handleSubmit(handleCreateTodo)}
+          >
+            <Controller
+              rules={{ required: true }}
+              control={control}
+              render={({ field }) => (
+                <FormControl fullWidth>
+                  <TextField
+                    {...field}
+                    error={errors.todoName ? true : false}
+                    name="todoName"
+                    label="Todo Name"
+                  />
+                  {errors.todoName && (
+                    <FormHelperText error>
+                      {errors.todoName.message}
+                    </FormHelperText>
+                  )}
+                </FormControl>
+              )}
+              name="todoName"
+            />
+            <div className="mt-5 flex justify-end">
+              <Button type="submit" size="small" variant="contained">
+                Submit
+              </Button>
             </div>
-          ))}
-        </div>
-      </CardContent>
-    </Card>
+          </Box>
+        </>
+      </Modal>
+      <Card>
+        <CardHeader
+          title="Todo"
+          action={
+            <IconButton onClick={open}>
+              <AddIcon />
+            </IconButton>
+          }
+        />
+        <CardContent>
+          {loadingFetch && (
+            <div className="flex justify-center">
+              <CircularProgress />
+            </div>
+          )}
+          {todoList &&
+            todoList.map((todo) => (
+              <div key={todo._id} className="flex justify-between items-center">
+                <FormControlLabel
+                  label={
+                    <Typography
+                      className={
+                        todo.isComplete ? 'line-through text-green-500' : ''
+                      }
+                    >
+                      {todo.todoName}
+                    </Typography>
+                  }
+                  control={
+                    <Checkbox
+                      disabled={todo.isComplete}
+                      checked={todo.isComplete}
+                      onChange={() =>
+                        handleUpdateTodo({
+                          id: todo._id,
+                          data: { isComplete: true },
+                        })
+                      }
+                    />
+                  }
+                />
+                <IconButton onClick={() => handleDeleteTodo(todo._id)}>
+                  <FiTrash2 />
+                </IconButton>
+              </div>
+            ))}
+        </CardContent>
+      </Card>
+    </React.Fragment>
   );
 };
 
