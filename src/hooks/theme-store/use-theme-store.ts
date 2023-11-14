@@ -11,7 +11,7 @@ const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches
 const userTheme = localStorage.getItem('theme') as ThemeStore['theme'];
 
 const useThemeStore = create<ThemeStore>()((set) => ({
-  theme: userTheme || 'light' || systemTheme,
+  theme: userTheme || 'dark' || systemTheme,
   setTheme: ({ theme }: { theme: ThemeStore['theme'] }) => {
     const body = document.body;
 

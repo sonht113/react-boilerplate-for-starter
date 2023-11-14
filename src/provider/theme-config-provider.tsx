@@ -1,73 +1,63 @@
-import { createContext, useContext, useEffect, useState } from 'react';
+import { ReactElement, useCallback, useEffect } from 'react';
 
-type Theme = 'dark' | 'light' | 'system';
+import CssBaseline from '@mui/material/CssBaseline';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
 
-type ThemeProviderProps = {
-  children: React.ReactNode;
-  defaultTheme?: Theme;
-  storageKey?: string;
+import { useThemeStore } from '@/hooks';
+
+type Props = {
+  children: ReactElement;
 };
 
-type ThemeProviderState = {
-  theme: Theme;
-  setTheme: (theme: Theme) => void;
-};
+function LayoutConfigProvider({ children }: Props) {
+  const theme = useThemeStore((state) => state.theme);
+  const setTheme = useThemeStore((state) => state.setTheme);
 
-const initialState: ThemeProviderState = {
-  theme: 'system',
-  setTheme: () => null,
-};
+  const setThemeState = useCallback(
+    (dark = true) => {
+      setTheme({
+        theme: dark ? 'dark' : 'light',
+      });
+    },
+    [setTheme],
+  );
 
-const ThemeProviderContext = createContext<ThemeProviderState>(initialState);
-
-export function ThemeProvider({
-  children,
-  defaultTheme = 'system',
-  storageKey = 'vite-ui-theme',
-  ...props
-}: ThemeProviderProps) {
-  const [theme, setTheme] = useState<Theme>(
-    () => (localStorage.getItem(storageKey) as Theme) || defaultTheme,
+  const matchMode = useCallback(
+    (e: MediaQueryListEvent) => {
+      setThemeState(e.matches);
+    },
+    [setThemeState],
   );
 
   useEffect(() => {
     const root = window.document.documentElement;
 
     root.classList.remove('light', 'dark');
+    setThemeState(theme === 'dark');
 
-    if (theme === 'system') {
-      const systemTheme = window.matchMedia('(prefers-color-scheme: dark)')
-        .matches
-        ? 'dark'
-        : 'light';
+    // watch system theme change
+    if (!localStorage.getItem('theme')) {
+      const mql = window.matchMedia('(prefers-color-scheme: dark)');
 
-      root.classList.add(systemTheme);
-      return;
+      mql.addEventListener('change', matchMode);
     }
 
     root.classList.add(theme);
-  }, [theme]);
-
-  const value = {
-    theme,
-    setTheme: (theme: Theme) => {
-      localStorage.setItem(storageKey, theme);
-      setTheme(theme);
-    },
-  };
+  }, [matchMode, setThemeState, theme]);
 
   return (
-    <ThemeProviderContext.Provider {...props} value={value}>
+    <ThemeProvider
+      theme={createTheme({
+        palette: {
+          mode: theme,
+        },
+      })}
+    >
+      {' '}
+      <CssBaseline />
       {children}
-    </ThemeProviderContext.Provider>
+    </ThemeProvider>
   );
 }
 
-export const useTheme = () => {
-  const context = useContext(ThemeProviderContext);
-
-  if (context === undefined)
-    throw new Error('useTheme must be used within a ThemeProvider');
-
-  return context;
-};
+export default LayoutConfigProvider;
