@@ -1,4 +1,4 @@
-# Boilerplate and Starter for React JS 18+, Tailwind CSS v3.3 and Typescript
+# Boilerplate and Starter for React JS 18+, Material-UI, Tailwind CSS v3.3 and Typescript
 
 <p align="center">
 <img src="public/assets/imgs/banner.png?raw=true" alt="React js starter banner" />
