@@ -164,7 +164,7 @@ const Todos: FC = () => {
             </div>
           )}
           {
-            !todoList && (
+            !loadingFetch &&!todoList && (
               <div className="flex justify-center">
                 <Typography className='text-black'>No data</Typography>
               </div>
