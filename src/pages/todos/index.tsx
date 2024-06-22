@@ -54,16 +54,17 @@ const Todos: FC = () => {
     useDeleteTodoMutation();
 
   const todoList = useMemo(() => {
-    if (!todos?.data) return [];
-    return todos?.data.sort((a, b) => {
-      if (a.isComplete && !b.isComplete) {
-        return 1; // Move 'a' to the end
-      } else if (!a.isComplete && b.isComplete) {
-        return -1; // Keep 'a' before 'b'
-      } else {
-        return 0; // Maintain the order of other elements
-      }
-    });
+    if(todos && todos.data) {
+      return todos?.data.sort((a, b) => {
+        if (a.isComplete && !b.isComplete) {
+          return 1; // Move 'a' to the end
+        } else if (!a.isComplete && b.isComplete) {
+          return -1; // Keep 'a' before 'b'
+        } else {
+          return 0; // Maintain the order of other elements
+        }
+      });
+    }
   }, [todos]);
 
   const handleCreateTodo = (body: TodoDataMutation) => {
@@ -163,7 +164,7 @@ const Todos: FC = () => {
             </div>
           )}
           {
-            !todoList || todoList.length === 0 && (
+            !todoList && (
               <div className="flex justify-center">
                 <Typography className='text-black'>No data</Typography>
               </div>
