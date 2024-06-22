@@ -54,6 +54,7 @@ const Todos: FC = () => {
     useDeleteTodoMutation();
 
   const todoList = useMemo(() => {
+    if (!todos?.data) return [];
     return todos?.data.sort((a, b) => {
       if (a.isComplete && !b.isComplete) {
         return 1; // Move 'a' to the end
@@ -161,6 +162,13 @@ const Todos: FC = () => {
               <CircularProgress />
             </div>
           )}
+          {
+            !todoList || todoList.length === 0 && (
+              <div className="flex justify-center">
+                <Typography className='text-black'>No data</Typography>
+              </div>
+            )
+          }
           {todoList &&
             todoList.map((todo) => (
               <div key={todo._id} className="flex justify-between items-center">
