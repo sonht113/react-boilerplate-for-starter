@@ -11,7 +11,7 @@ Clone this project and use it to create your own [React.js](https://nextjs.org) 
 ### Features
 
 - ⚡ [React.js](https://react.dev/)
-- ⚡ [Material-UI](https://mui.com/))
+- ⚡ [Material-UI](https://mui.com/)
 - 🔥 Type checking [TypeScript](https://www.typescriptlang.org)
 - 💎 Integrate with [Tailwind CSS](https://tailwindcss.com)
 - ✅ Strict Mode for TypeScript and React 18
